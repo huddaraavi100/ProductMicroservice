@@ -13,7 +13,6 @@ public class ProductService implements ServiceInterface {
     @Autowired
     private ProductRepository repo;
 
-    @Override
     public List<Product> getExpensiveProducts(){
         return repo.findByPriceGreaterThan(2000);
     }
