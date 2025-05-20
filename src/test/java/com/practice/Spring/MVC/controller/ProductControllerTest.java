@@ -45,8 +45,10 @@ public class ProductControllerTest {
     @Test
     void testGetAllProducts() {
         List<Product> productList = Arrays.asList(
-                new Product(1L, "Laptop", "Gaming laptop", 1500.0, "Electronics", 5),
-                new Product(2L, "Phone", "Smartphone", 800.0, "Electronics", 10)
+                new Product(1L, "Laptop", "Gaming laptop",
+                        1500.0, "Electronics", 5),
+                new Product(2L, "Phone", "Smartphone",
+                        800.0, "Electronics", 10)
         );
 
         when(productService.getALLProductsService()).thenReturn(productList);
@@ -58,8 +60,10 @@ public class ProductControllerTest {
 
     @Test
     void testCreateProduct() {
-        Product input = new Product(null, "Tablet", "Android tablet", 300.0, "Electronics", 15);
-        Product saved = new Product(3L, "Tablet", "Android tablet", 300.0, "Electronics", 15);
+        Product input = new Product(null, "Tablet", "Android tablet", 300.0,
+                "Electronics", 15);
+        Product saved = new Product(3L, "Tablet", "Android tablet", 300.0,
+                "Electronics", 15);
 
         when(productService.createProductService(input)).thenReturn(saved);
 
