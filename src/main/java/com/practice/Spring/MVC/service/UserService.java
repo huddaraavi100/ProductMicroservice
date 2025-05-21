@@ -19,6 +19,7 @@ public class UserService {
     }
 
     public List<User> getAllUserService(){
+
         return userRepo.findAll();
     }
 
@@ -26,7 +27,7 @@ public class UserService {
         return userRepo.findById(id);
     }
 
-    public Optional< User> updateUserService(long id, User updatedUser){
+    public Optional<User> updateUserService(Long id, User updatedUser){
         return userRepo.findById(id).map(user ->{
             user.setAge(updatedUser.getAge());
             user.setName(updatedUser.getName());

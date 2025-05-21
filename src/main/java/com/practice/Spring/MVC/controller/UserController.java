@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -39,10 +40,24 @@ public class UserController {
 
     }
 
- /**   @GetMapping("/all")
+   @GetMapping("/all")
     public ResponseEntity<ApiResponse<List<User>>> getAll(){
-        
+        List<User> users=userService.getAllUserService();
+        return ResponseEntity.ok().body(new ApiResponse<>(true,"All Users",
+                users));
 
     }
-**/
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ApiResponse<User>> updateUser(@PathVariable Long id,@RequestBody User updatedUser){
+        Optional<User> updated=userService.updateUserService(id,updatedUser);
+        if(updated.isPresent()){
+            return ResponseEntity.ok(new ApiResponse<>(true,"User updated",updated.get()));
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(false,
+                "User not found",null));
+
+
+    }
+
 }

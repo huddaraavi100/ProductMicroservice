@@ -11,6 +11,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,6 +67,65 @@ class UserControllerTest {
         assertEquals("User Not Found",actualResult.getMessage());
     }
 
+    @Test
+    void testGetAll(){
+        List<User> list= Arrays.asList(
+                new User(1L,"Kaya","kaya100@yahoo.com",20),
+                new User(2L,"Siya","siya100@gmail.com",20)
+        );
+        when(service.getAllUserService()).thenReturn(list);
+       ResponseEntity<ApiResponse<List<User>>> users=controller.getAll();
+        assertEquals(HttpStatus.OK,users.getStatusCode());
+     ApiResponse<List<User>> body=users.getBody();
+     assertNotNull(body);
+     assertTrue(body.isSuccess());
+     assertEquals("All Users",body.getMessage());
+
+        List<User> result=body.getData();
+        assertEquals("Kaya",result.get(0).getName());
+        assertEquals("Siya",result.get(1).getName());
+
+
+    }
+
+    @Test
+    void testUpdateUser(){
+
+        User input=new User(null,"Kia","new@yahoo.com",2);
+        User updated=new User(1L,"Kia","new@yahoo.com",2);
+        when(service.updateUserService(1L,input)).thenReturn(Optional.of(updated));
+        ResponseEntity<ApiResponse<User>> response=controller.updateUser(1L,input);
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+
+        ApiResponse<User> body=response.getBody();
+        assertNotNull(body);
+        assertTrue(body.isSuccess());
+        assertEquals("User updated", body.getMessage());
+
+        User result=body.getData();
+        assertNotNull(result);
+        assertEquals("Kia",result.getName());
+
+    }
+
+    @Test
+    void testUpdateUser_ifNotFound(){
+
+        User input=new User(null,"Kia","new@yahoo.com",2);
+
+        when(service.updateUserService(2L,input)).thenReturn(Optional.empty());
+        ResponseEntity<ApiResponse<User>> response=controller.updateUser(2L,input);
+
+        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+
+        ApiResponse<User> body=response.getBody();
+        assertFalse(body.isSuccess());
+        assertEquals("User not found",body.getMessage());
+        assertNull(body.getData());
+
+
+
+    }
 
 
 
