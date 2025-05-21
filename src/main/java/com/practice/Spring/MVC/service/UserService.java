@@ -3,7 +3,6 @@ package com.practice.Spring.MVC.service;
 import com.practice.Spring.MVC.model.User;
 import com.practice.Spring.MVC.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,15 +18,15 @@ public class UserService {
         return userRepo.save(user);
     }
 
-    public List<User> getAllUser(){
+    public List<User> getAllUserService(){
         return userRepo.findAll();
     }
 
-    public Optional<User> getById(Long id){
+    public Optional<User> getByIdService(Long id){
         return userRepo.findById(id);
     }
 
-    public Optional< User> updateUser(long id,User updatedUser){
+    public Optional< User> updateUserService(long id, User updatedUser){
         return userRepo.findById(id).map(user ->{
             user.setAge(updatedUser.getAge());
             user.setName(updatedUser.getName());

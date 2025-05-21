@@ -1,16 +1,13 @@
 package com.practice.Spring.MVC.controller;
 
 import com.practice.Spring.MVC.model.User;
-import com.practice.Spring.MVC.repository.UserRepository;
 import com.practice.Spring.MVC.response.ApiResponse;
 import com.practice.Spring.MVC.service.UserService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -30,7 +27,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<?>> getById(@PathVariable Long id){
-        Optional<User> user=userService.getById(id);
+        Optional<User> user=userService.getByIdService(id);
         /** lets say user=null, but line no 36 code is executing**/
         if(user.isPresent()){
             return ResponseEntity.ok().body(new ApiResponse<>(true,"User Found",user.get()));
