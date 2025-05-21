@@ -16,7 +16,10 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
+
 
 class UserControllerTest {
 
@@ -125,6 +128,14 @@ class UserControllerTest {
 
 
 
+    }
+
+    @Test
+    void testDeleteUser(){
+        when(service.deleteUser(1L)).thenReturn(true);
+        boolean result=controller.deleteUser(1L);
+        assertTrue(result);
+        verify(service,times(1)).deleteUser(1L);
     }
 
 
