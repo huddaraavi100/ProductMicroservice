@@ -61,8 +61,14 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean deleteUser(@PathVariable Long id){
-        return userService.deleteUser(id);
+    public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable Long id){
+        boolean deleted = userService.deleteUser(id);
+        if(deleted){
+            return ResponseEntity.ok(new ApiResponse<>(true,"User deleted",null));
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>(false,
+                "User not found",null));
+
     }
 
 }

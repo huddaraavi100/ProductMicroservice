@@ -131,11 +131,31 @@ class UserControllerTest {
     }
 
     @Test
-    void testDeleteUser(){
+    void testDeleteUser() {
         when(service.deleteUser(1L)).thenReturn(true);
-        boolean result=controller.deleteUser(1L);
-        assertTrue(result);
-        verify(service,times(1)).deleteUser(1L);
+        ResponseEntity<ApiResponse<Void>> result = controller.deleteUser(1L);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+
+        ApiResponse<Void> body = result.getBody();
+        assertNotNull(body);
+        assertEquals(true, body.isSuccess());
+        assertEquals("User deleted", body.getMessage());
+        assertNull(body.getData());
+    }
+
+
+    @Test
+    void testDeleteUser_whenNotFound() {
+        when(service.deleteUser(2L)).thenReturn(false);
+        ResponseEntity<ApiResponse<Void>> result = controller.deleteUser(2L);
+        assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
+
+        ApiResponse<Void> body = result.getBody();
+        assertNotNull(body);
+        assertEquals(false, body.isSuccess());
+        assertEquals("User not found" , body.getMessage());
+        assertNull(body.getData());
+        verify(service, times(1)).deleteUser(2L);
     }
 
 

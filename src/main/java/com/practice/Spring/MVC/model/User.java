@@ -11,6 +11,10 @@ public class User {
     private String email;
     private int age;
 
+    public User(){
+
+    }
+
     public User(Long id, String name, String email, int age) {
         this.id = id;
         this.name = name;
