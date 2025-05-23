@@ -3,7 +3,7 @@ package com.practice.Spring.MVC.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="Product")
+@Table(name="product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

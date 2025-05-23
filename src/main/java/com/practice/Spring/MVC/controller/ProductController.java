@@ -14,26 +14,26 @@ public class ProductController {
     private ProductService service;
     @GetMapping("/{id}")
     public Product getProductByIdController(@PathVariable Long id){
-    Product p=service.getProductByIdService(id);
-        return p;
+       return service.getProductByIdService(id);
+
     }
 
-    @GetMapping("/product")
+    @GetMapping("/products")
     public List<Product> getAllProductsController(){
         return service.getALLProductsService();
     }
 
-    @PostMapping("/product/{id}")
+    @PostMapping("/add")
     public Product createProductController(@RequestBody Product product){
         return service.createProductService(product);
     }
 
-    @PutMapping("/product/{id}")
+    @PutMapping("/update/{id}")
     public Product updateProductController(@PathVariable Long id, @RequestBody Product updatedProduct){
         return service.updateProductService(id,updatedProduct);
     }
 
-    @DeleteMapping("/product/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteProductController(@PathVariable Long id){
         service.deleteProductService(id);
         return "Product with id " +id+ " has been deleted";
