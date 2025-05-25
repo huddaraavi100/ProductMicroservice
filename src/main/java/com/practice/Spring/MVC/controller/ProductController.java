@@ -15,7 +15,7 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService service;
-    @GetMapping("/{id}")
+    @GetMapping("/products/{id}")
     public ResponseEntity<ApiResponse<Product>> getProductByIdController(@PathVariable Long id){
         return service.getProductByIdService(id)
                 .map(product -> ResponseEntity.ok(new ApiResponse<>(true,"Product found",product)))
@@ -29,13 +29,13 @@ public class ProductController {
         return ResponseEntity.ok(new ApiResponse<>(true,"All products",products));
     }
 
-    @PostMapping("/add")
+    @PostMapping("/products")
     public ResponseEntity<ApiResponse<Product>> createProductController(@RequestBody Product product){
         Product created=service.createProductService(product);
         return ResponseEntity.ok(new ApiResponse<>(true,"Product added",created));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/products/{id}")
     public ResponseEntity<ApiResponse<Product>> updateProductController(@PathVariable Long id,
                                                                         @RequestBody Product product){
         return service.updateProductService(id, product)
@@ -45,7 +45,7 @@ public class ProductController {
 
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/products/{id}")
     public ResponseEntity<ApiResponse<Product>> deleteProductController(@PathVariable Long id) {
         return service.deleteProductService(id)
                 .map(deleted -> ResponseEntity.ok(new ApiResponse<>(true, "Product deleted", deleted)))

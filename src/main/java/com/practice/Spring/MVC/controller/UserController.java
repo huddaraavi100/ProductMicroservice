@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/add")
+    @PostMapping("/users")
     public ResponseEntity<ApiResponse<User>> addUser(@RequestBody User user){
         User savedUser=userService.saveUser(user);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -26,7 +26,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<ApiResponse<?>> getById(@PathVariable Long id){
         Optional<User> user=userService.getByIdService(id);
         /** lets say user=null, but line no 36 code is executing**/
@@ -40,7 +40,7 @@ public class UserController {
 
     }
 
-   @GetMapping("/all")
+   @GetMapping("/users")
     public ResponseEntity<ApiResponse<List<User>>> getAll(){
         List<User> users=userService.getAllUserService();
         return ResponseEntity.ok().body(new ApiResponse<>(true,"All Users",
@@ -48,7 +48,7 @@ public class UserController {
 
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/users/{id}")
     public ResponseEntity<ApiResponse<User>> updateUser(@PathVariable Long id,@RequestBody User updatedUser){
         Optional<User> updated=userService.updateUserService(id,updatedUser);
         if(updated.isPresent()){
@@ -60,7 +60,7 @@ public class UserController {
 
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable Long id){
         boolean deleted = userService.deleteUser(id);
         if(deleted){
