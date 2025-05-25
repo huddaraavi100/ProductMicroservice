@@ -16,23 +16,6 @@ This is a Spring Boot-based RESTful API that manages **Product** and **Users** u
 - MongoDB
 
 
-src/
-├── main/
-│ ├── java/
-│ │ └── com.practice.Spring.MVC/
-│ │ ├── controller/
-│ │ ├── model/
-│ │ ├── repository/
-│ │ ├── response/
-│ │ ├── service/
-│ └── resources/
-│ └── application.properties
-├── test/
-│ └── java/
-│ └── com.practice.Spring.MVC/
-│ └── controller/
-
-
 
 
 ### Product APIs (`/api`)
