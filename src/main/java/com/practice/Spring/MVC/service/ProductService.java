@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -17,11 +18,12 @@ public class ProductService implements ServiceInterface {
         return repo.findByPriceGreaterThan(2000);
     }
 
-   public Product getProductByIdService(Long id){
-       return repo.findById(id).orElse(null);
+   public Optional<Product> getProductByIdService(Long id){
+
+        return repo.findById(id);
    }
 
-   public List<Product> getALLProductsService(){
+   public List<Product> getAllProductsService(){
        return repo.findAll();
    }
 
@@ -29,21 +31,24 @@ public class ProductService implements ServiceInterface {
        return repo.save(product);
    }
 
-   public Product updateProductService(Long id, Product updatedproduct){
-       Product product = repo.findById(id).orElse(null);
-       if(product!=null){
-           product.setCategory(updatedproduct.getCategory());
-           product.setDescription((updatedproduct.getDescription()));
-           product.setName(updatedproduct.getName());
-           product.setPrice(updatedproduct.getPrice());
-           product.setQuantity(updatedproduct.getQuantity());
-           return repo.save(product);
-       }
-       return null;
+   public Optional<Product> updateProductService(Long id, Product newproduct){
+      return repo.findById(id).map(updated -> {
+          updated.setName(newproduct.getName());
+          updated.setPrice(newproduct.getPrice());
+          updated.setQuantity(newproduct.getQuantity());
+          updated.setDescription(newproduct.getDescription());
+          updated.setCategory(newproduct.getCategory());
+         return repo.save(updated);
+
+      });
    }
 
-   public void deleteProductService(Long id){
-       repo.deleteById(id);
+   public Optional<Product>  deleteProductService(Long id){
+
+        return repo.findById(id).map(product ->{
+            repo.deleteById(id);
+            return product;
+        });
    }
 
 }

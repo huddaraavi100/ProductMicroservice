@@ -52,7 +52,7 @@ public class ProductServiceTest {
         );
         when(repo.findAll()).thenReturn(products);
 
-        List<Product> result = service.getALLProductsService();
+        List<Product> result = service.getAllProductsService();
         assertEquals(2, result.size());
     }
 

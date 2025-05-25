@@ -48,7 +48,7 @@ class UserControllerTest {
 
     }
     @Test
-    void testGetById(){
+    void getById_WhenUserExists_ReturnsUser(){
         User user=new User(2L,"Aavi","aaviray19@yahoo.com",1);
         when(service.getByIdService(2L)).thenReturn(Optional.of(user));
 
@@ -60,7 +60,7 @@ class UserControllerTest {
         assertEquals(user,actualUser.getData());
     }
     @Test
-    void getById_UserNotFound_Rturn404(){
+    void getById_WhenUserNotFound_Returns404(){
         when(service.getByIdService(3L)).thenReturn(Optional.empty());
         ResponseEntity<ApiResponse<?>> result=controller.getById(3L);
         assertEquals(HttpStatus.NOT_FOUND,result.getStatusCode());
