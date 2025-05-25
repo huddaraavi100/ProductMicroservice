@@ -1,5 +1,6 @@
 # Springboot Product and User Service
 Microservice for Product and User Api
+
 This is a Spring Boot-based RESTful API that manages **Product** and **Users** using two different databases:
 - **PostgreSQL** for `Product` entities
 - **MongoDB** for `User` entities
